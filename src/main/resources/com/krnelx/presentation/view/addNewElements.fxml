@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="222.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.krnelx.presentation.controller.AddNewElementsController">
+<TextField fx:id="textField3" layoutX="26.0" layoutY="119.0" promptText="Введіть адресу" />
+<TextField fx:id="textField2" layoutX="26.0" layoutY="77.0" promptText="Введіть опис" />
+<TextField fx:id="textField1" layoutX="26.0" layoutY="34.0" promptText="Введіть назву" />
+   <VBox alignment="CENTER" cache="true" layoutX="242.0" layoutY="31.0" prefHeight="147.0" prefWidth="149.0" spacing="8">
+      <children>
+        <Button fx:id="addSectionButton" onAction="#onSaveEvent" prefHeight="25.0" prefWidth="149.0" styleClass="accent" text="Додати подію" />
+        <Button fx:id="addCategoryButton" onAction="#onSavePerson" prefHeight="25.0" prefWidth="159.0" styleClass="accent" text="Додати персону" />
+        <Button fx:id="addDescriptionButton" onAction="#onSaveDescription" prefHeight="25.0" prefWidth="155.0" styleClass="accent" text="Додати періоди" />
+      <Button onAction="#onCancel" prefHeight="25.0" prefWidth="156.0" text="Cancel" />
+      </children>
+   </VBox>
+
+</AnchorPane>

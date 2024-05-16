@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="338.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.krnelx.presentation.controller.SignInController">
+
+  <!-- Вертикальний контейнер для розміщення елементів -->
+  <VBox alignment="CENTER" spacing="10" />
+
+ <!-- Поле для введення логіну -->
+ <TextField fx:id="usernameField" layoutX="96.0" layoutY="119.0" prefHeight="25.0" prefWidth="209.0" promptText="Логін" />
+
+ <!-- Поле для введення пароля -->
+ <PasswordField fx:id="passwordField" layoutX="96.0" layoutY="168.0" prefHeight="25.0" prefWidth="209.0" promptText="Пароль" />
+
+ <!-- Горизонтальний контейнер для кнопок реєстрації та виходу -->
+ <HBox layoutX="57.0" layoutY="258.0" prefHeight="25.0" prefWidth="269.0" spacing="10">
+      <children>
+      
+          <!-- Кнопка для входу -->
+       <Button onAction="#signIn" prefHeight="25.0" prefWidth="80.0" styleClass="accent" text="Увійти" />
+      
+      <!-- Кнопка для переходу на сторінку реєстрації -->
+      <Button onAction="#goToRegistration" prefHeight="25.0" prefWidth="120.0" text="Реєстрація" />
+      
+      <!-- Кнопка для виходу -->
+      <Button fx:id="exitButton" onAction="#exit" prefHeight="25.0" prefWidth="81.0" text="Вийти" />
+      </children>
+
+ </HBox>
+    <Label layoutX="109.0" layoutY="66.0" styleClass="title-1" text="Авторизація" />
+
+</AnchorPane>

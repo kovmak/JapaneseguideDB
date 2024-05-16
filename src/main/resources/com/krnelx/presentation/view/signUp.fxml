@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="419.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.krnelx.presentation.controller.SignUpController">
+
+  <VBox alignment="CENTER" maxHeight="300" maxWidth="300" spacing="20.0" />
+ <HBox alignment="CENTER_LEFT" layoutX="304.0" layoutY="203.0" prefHeight="25.0" prefWidth="237.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="77.0" text="Role:" />
+   <ComboBox fx:id="roleComboBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="180.0" />
+ </HBox>
+ <HBox alignment="CENTER_LEFT" layoutX="304.0" layoutY="163.0" prefHeight="25.0" prefWidth="238.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="63.0" text="Name:" />
+   <TextField fx:id="nameField" prefHeight="25.0" prefWidth="163.0" promptText="JohnDoe" />
+ </HBox>
+ <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="163.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="80.0" text="Login:" />
+   <TextField fx:id="loginField" prefHeight="25.0" prefWidth="169.0" promptText="JohnDoe" />
+ </HBox>
+ <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="203.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="95.0" text="Password:" />
+   <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="185.0" promptText="123456789" />
+ </HBox>
+ <HBox alignment="CENTER_LEFT" layoutX="302.0" layoutY="244.0" prefHeight="25.0" prefWidth="238.0" spacing="10.0">
+   <Label fx:id="phoneNumberLabel" prefHeight="17.0" prefWidth="69.0" text="Phone:" />
+   <TextField fx:id="phoneNumberField" prefHeight="25.0" prefWidth="168.0" promptText="+1234567899" />
+ </HBox>
+ <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="244.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
+   <Label fx:id="addressLabel" prefHeight="17.0" prefWidth="93.0" text="Address:" />
+   <TextField fx:id="addressField" prefHeight="25.0" prefWidth="183.0" promptText="Lontail 21" />
+ </HBox>
+ <HBox alignment="BOTTOM_LEFT" layoutX="201.0" layoutY="332.0" prefHeight="25.0" prefWidth="169.0" spacing="10.0">
+   <Button onAction="#onSaveButtonClicked" prefHeight="25.0" prefWidth="83.0" styleClass="accent" text="Save" />
+   <Button onAction="#onCancelButtonClicked" prefHeight="25.0" prefWidth="88.0" text="Cancel" />
+ </HBox>
+<Label layoutX="216.0" layoutY="65.0" prefHeight="17.0" prefWidth="268.0" styleClass="title-1" text="Реєстрація" />
+<Label fx:id="idField" layoutX="63.0" layoutY="124.0" prefHeight="17.0" prefWidth="432.0" />
+   <Label layoutX="15.0" layoutY="124.0" prefHeight="17.0" prefWidth="41.0" text="ID:" />
+
+</AnchorPane>
