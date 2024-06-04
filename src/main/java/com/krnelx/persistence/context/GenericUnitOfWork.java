@@ -1,6 +1,5 @@
 package com.krnelx.persistence.context;
 
-
 import com.krnelx.persistence.entity.Entity;
 import com.krnelx.persistence.exception.EntityNotFoundException;
 import com.krnelx.persistence.repository.Repository;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,8 @@ public abstract class GenericUnitOfWork<T extends Entity> implements UnitOfWork<
 
     protected GenericUnitOfWork(Repository<T> repository) {
         this.repository = repository;
-        context = new HashMap<>();
+        this.context = new HashMap<>();
+        this.entities = new HashSet<>();
     }
 
     @Override
@@ -84,7 +85,7 @@ public abstract class GenericUnitOfWork<T extends Entity> implements UnitOfWork<
         var entitiesToBeInserted = context.get(UnitActions.INSERT);
         entities = repository.save(entitiesToBeInserted);
         for (var entity : entitiesToBeInserted) {
-            LOGGER.info(STR."Inserting a new entity \{entity} from \{entitiesToBeInserted} to table.");
+            LOGGER.info("Inserting a new entity {} from {} to table.", entity.id(), entitiesToBeInserted);
             repository.save(entity);
         }
     }
@@ -108,26 +109,23 @@ public abstract class GenericUnitOfWork<T extends Entity> implements UnitOfWork<
     }
 
     public T getEntity(UUID id) {
-        if (entities.isEmpty()) {
+        if (entities == null || entities.isEmpty()) {
             throw new EntityNotFoundException("No entities available");
         }
         return entities.stream()
-            .filter(e -> e.id().equals(id))
-            .findFirst()
-            .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
+                .filter(e -> e.id().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Entity not found with id: " + id));
     }
 
-
     public T getEntity() {
-        if (entities.isEmpty()) {
+        if (entities == null || entities.isEmpty()) {
             throw new EntityNotFoundException("No entities available");
         }
         return entities.stream().findFirst().orElseThrow(() -> new EntityNotFoundException("No entity found"));
     }
 
-
     public Set<T> getEntities() {
         return entities;
     }
 }
-

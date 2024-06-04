@@ -3,39 +3,40 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="419.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.krnelx.presentation.controller.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="477.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.krnelx.presentation.controller.SignUpController">
 
   <VBox alignment="CENTER" maxHeight="300" maxWidth="300" spacing="20.0" />
- <HBox alignment="CENTER_LEFT" layoutX="304.0" layoutY="203.0" prefHeight="25.0" prefWidth="237.0" spacing="10.0">
-   <Label prefHeight="17.0" prefWidth="77.0" text="Role:" />
+ <HBox alignment="CENTER_LEFT" layoutX="352.0" layoutY="203.0" prefHeight="25.0" prefWidth="237.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="77.0" text="Роль:" />
    <ComboBox fx:id="roleComboBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="180.0" />
  </HBox>
- <HBox alignment="CENTER_LEFT" layoutX="304.0" layoutY="163.0" prefHeight="25.0" prefWidth="238.0" spacing="10.0">
-   <Label prefHeight="17.0" prefWidth="63.0" text="Name:" />
+ <HBox alignment="CENTER_LEFT" layoutX="352.0" layoutY="163.0" prefHeight="25.0" prefWidth="238.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="63.0" text="Ім'я:" />
    <TextField fx:id="nameField" prefHeight="25.0" prefWidth="163.0" promptText="JohnDoe" />
  </HBox>
- <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="163.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
-   <Label prefHeight="17.0" prefWidth="80.0" text="Login:" />
+ <HBox alignment="CENTER_LEFT" layoutX="63.0" layoutY="163.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="80.0" text="Логін:" />
    <TextField fx:id="loginField" prefHeight="25.0" prefWidth="169.0" promptText="JohnDoe" />
  </HBox>
- <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="203.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
-   <Label prefHeight="17.0" prefWidth="95.0" text="Password:" />
+ <HBox alignment="CENTER_LEFT" layoutX="63.0" layoutY="203.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
+   <Label prefHeight="17.0" prefWidth="95.0" text="Пароль:" />
    <PasswordField fx:id="passwordField" prefHeight="25.0" prefWidth="185.0" promptText="123456789" />
  </HBox>
- <HBox alignment="CENTER_LEFT" layoutX="302.0" layoutY="244.0" prefHeight="25.0" prefWidth="238.0" spacing="10.0">
-   <Label fx:id="phoneNumberLabel" prefHeight="17.0" prefWidth="69.0" text="Phone:" />
+ <HBox alignment="CENTER_LEFT" layoutX="350.0" layoutY="244.0" prefHeight="25.0" prefWidth="238.0" spacing="10.0">
+   <Label fx:id="phoneNumberLabel" prefHeight="17.0" prefWidth="69.0" text="Номер:" />
    <TextField fx:id="phoneNumberField" prefHeight="25.0" prefWidth="168.0" promptText="+1234567899" />
  </HBox>
- <HBox alignment="CENTER_LEFT" layoutX="15.0" layoutY="244.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
-   <Label fx:id="addressLabel" prefHeight="17.0" prefWidth="93.0" text="Address:" />
+ <HBox alignment="CENTER_LEFT" layoutX="63.0" layoutY="244.0" prefHeight="25.0" prefWidth="258.0" spacing="10.0">
+   <Label fx:id="addressLabel" prefHeight="17.0" prefWidth="93.0" text="Адрес:" />
    <TextField fx:id="addressField" prefHeight="25.0" prefWidth="183.0" promptText="Lontail 21" />
  </HBox>
- <HBox alignment="BOTTOM_LEFT" layoutX="201.0" layoutY="332.0" prefHeight="25.0" prefWidth="169.0" spacing="10.0">
-   <Button onAction="#onSaveButtonClicked" prefHeight="25.0" prefWidth="83.0" styleClass="accent" text="Save" />
-   <Button onAction="#onCancelButtonClicked" prefHeight="25.0" prefWidth="88.0" text="Cancel" />
+ <HBox alignment="BOTTOM_LEFT" layoutX="205.0" layoutY="332.0" prefHeight="25.0" prefWidth="312.0" spacing="10.0">
+   <Button onAction="#onSaveButtonClicked" prefHeight="25.0" prefWidth="83.0" styleClass="accent" text="Зберегти" />
+   <Button onAction="#onCancelButtonClicked" prefHeight="25.0" prefWidth="88.0" styleClass="accent" text="Очистити" />
+     <Button onAction="#onCancel" prefHeight="25.0" prefWidth="92.0" text="Вихід" />
  </HBox>
-<Label layoutX="216.0" layoutY="65.0" prefHeight="17.0" prefWidth="268.0" styleClass="title-1" text="Реєстрація" />
-<Label fx:id="idField" layoutX="63.0" layoutY="124.0" prefHeight="17.0" prefWidth="432.0" />
-   <Label layoutX="15.0" layoutY="124.0" prefHeight="17.0" prefWidth="41.0" text="ID:" />
+<Label layoutX="268.0" layoutY="66.0" prefHeight="17.0" prefWidth="268.0" styleClass="title-1" text="Реєстрація" />
+<Label fx:id="idField" layoutX="95.0" layoutY="126.0" prefHeight="17.0" prefWidth="459.0" />
+   <Label layoutX="63.0" layoutY="126.0" prefHeight="17.0" prefWidth="43.0" text="ID:" />
 
 </AnchorPane>

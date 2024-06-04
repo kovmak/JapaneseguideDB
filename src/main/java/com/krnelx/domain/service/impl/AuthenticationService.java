@@ -35,7 +35,6 @@ public class AuthenticationService {
         return false;
     }
 
-
     public boolean isAuthenticated() {
         return user != null;
     }

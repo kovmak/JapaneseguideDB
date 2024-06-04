@@ -1,30 +1,26 @@
 package com.krnelx.presentation.controller;
 
-import static com.krnelx.presentation.Runner.springContext;
-
 import com.krnelx.persistence.entity.Description;
 import com.krnelx.persistence.entity.Events;
 import com.krnelx.persistence.entity.Person;
 import com.krnelx.persistence.util.ConnectionManager;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-
-import java.sql.*;
-import java.util.UUID;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Component
 public class MainController {
@@ -36,13 +32,13 @@ public class MainController {
     private Label accessLevelLabel;
 
     @FXML
-    private VBox sectionButtons;
+    private ListView<String> sectionListView;
 
     @FXML
-    private VBox categoriesButtons;
+    private ListView<String> categoryListView;
 
     @FXML
-    private VBox descriptionsButtons;
+    private ListView<String> descriptionListView;
 
     @FXML
     private Label InfoLabel;
@@ -58,9 +54,12 @@ public class MainController {
     private Connection connection;
 
     private final ConnectionManager connectionManager;
+    private final ApplicationContext springContext;
+
     @Autowired
-    public MainController(ConnectionManager connectionManager) {
+    public MainController(ConnectionManager connectionManager, ApplicationContext springContext) {
         this.connectionManager = connectionManager;
+        this.springContext = springContext;
     }
 
     @FXML
@@ -120,7 +119,7 @@ public class MainController {
     // Метод для отримання секцій
     private void retrieveSections() {
         try {
-            sectionButtons.getChildren().clear();
+            sectionListView.getItems().clear();
             Statement statement = connection.createStatement();
             ResultSet sectionResultSet = statement.executeQuery("SELECT * FROM events");
 
@@ -138,9 +137,7 @@ public class MainController {
             sectionResultSet.close();
 
             for (Events section : sections) {
-                Button sectionButton = new Button(section.getName());
-                sectionButton.setOnAction(event -> InfoLabel.setText("Події: " + section.getName() + "\nОпис: " + section.getDescription()));
-                sectionButtons.getChildren().add(sectionButton);
+                sectionListView.getItems().add(section.getName() + " - " + section.getDescription());
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving sections", e);
@@ -150,7 +147,7 @@ public class MainController {
     // Метод для отримання категорій
     private void retrieveCategories() {
         try {
-            categoriesButtons.getChildren().clear();
+            categoryListView.getItems().clear();
             Statement statement = connection.createStatement();
             ResultSet categoryResultSet = statement.executeQuery("SELECT * FROM person");
 
@@ -168,21 +165,17 @@ public class MainController {
             categoryResultSet.close();
 
             for (Person person : persons) {
-                Button personButton = new Button(person.name());
-                personButton.setOnAction(event -> InfoLabel.setText("Персони: " + person.name() + "\nОпис: " + person.address()));
-                categoriesButtons.getChildren().add(personButton);
+                categoryListView.getItems().add(person.name() + " - " + person.address());
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error retrieving sections", e);
+            throw new RuntimeException("Error retrieving categories", e);
         }
     }
-
-
 
     // Метод для отримання описів
     private void retrieveDescriptions() {
         try {
-            descriptionsButtons.getChildren().clear(); // Очистка вмісту descriptionsButtons
+            descriptionListView.getItems().clear();
             Statement statement = connection.createStatement();
             ResultSet descriptionResultSet = statement.executeQuery("SELECT * FROM description");
 
@@ -200,9 +193,7 @@ public class MainController {
             descriptionResultSet.close();
 
             for (Description description : descriptions) {
-                Button descriptionButton = new Button(description.name());
-                descriptionButton.setOnAction(event -> InfoLabel.setText("Періоди: " + description.name() + "\nОпис: " + description.description()));
-                descriptionsButtons.getChildren().add(descriptionButton);
+                descriptionListView.getItems().add(description.name() + " - " + description.description());
             }
         } catch (SQLException e) {
             throw new RuntimeException("Error retrieving descriptions", e);
@@ -243,8 +234,37 @@ public class MainController {
         }
     }
 
+    private void DeleteElementsWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/com/krnelx/presentation/view/deleteElements.fxml"));
+            loader.setControllerFactory(springContext::getBean);
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.getIcons().add(new Image(getClass()
+                    .getResourceAsStream("/com/krnelx/presentation/icon.png")));
+            stage.setTitle("Видалення елементів");
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+
+            stage.showAndWait();
+            retrieveSections();
+            retrieveCategories();
+            retrieveDescriptions();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void addWindow() {
         addElementsWindow();
+    }
+
+    @FXML
+    private void deleteWindow() {
+        DeleteElementsWindow();
     }
 }

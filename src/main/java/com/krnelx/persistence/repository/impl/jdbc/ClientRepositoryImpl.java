@@ -40,8 +40,7 @@ public class ClientRepositoryImpl extends GenericJdbcRepository<Client> implemen
         return List.of(
             "name",
             "phone",
-            "address",
-            "section_id"
+            "address"
         );
     }
 

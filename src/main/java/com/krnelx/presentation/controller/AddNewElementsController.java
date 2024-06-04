@@ -2,8 +2,7 @@ package com.krnelx.presentation.controller;
 
 import com.krnelx.persistence.util.ConnectionManager;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +14,15 @@ import java.util.UUID;
 
 @Component
 public class AddNewElementsController {
+
+    @FXML
+    private CheckBox descriptionCheckBox;
+
+    @FXML
+    private CheckBox eventCheckBox;
+
+    @FXML
+    private CheckBox personCheckBox;
 
     @FXML
     private TextField textField1;
@@ -33,54 +41,27 @@ public class AddNewElementsController {
     }
 
     @FXML
-    public void onSaveDescription() {
-        String elementType = getElementTypeDescription(); // Отримайте тип елементу
-        switch (elementType) {
-            case "description":
-                saveDescription();
-                break;
-            default:
-                showAlert(Alert.AlertType.ERROR, "Помилка", "Невідомий тип елементу");
-                break;
+    public void onCheckBoxAction() {
+        if (personCheckBox.isSelected()) {
+            textField2.setDisable(true);
+            textField3.setDisable(false);
+        } else {
+            textField2.setDisable(false);
+            textField3.setDisable(true);
         }
     }
 
     @FXML
-    public void onSaveEvent() {
-        String elementType = getElementTypeEvent(); // Отримайте тип елементу
-        switch (elementType) {
-            case "events":
-                saveEvent();
-                break;
-            default:
-                showAlert(Alert.AlertType.ERROR, "Помилка", "Невідомий тип елементу");
-                break;
+    public void onSave() {
+        if (descriptionCheckBox.isSelected()) {
+            saveDescription();
+        } else if (eventCheckBox.isSelected()) {
+            saveEvent();
+        } else if (personCheckBox.isSelected()) {
+            savePerson();
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Виберіть тип елементу для збереження");
         }
-    }
-
-    @FXML
-    public void onSavePerson() {
-        String elementType = getElementTypePerson(); // Отримайте тип елементу
-        switch (elementType) {
-            case "person":
-                savePerson();
-                break;
-            default:
-                showAlert(Alert.AlertType.ERROR, "Помилка", "Невідомий тип елементу");
-                break;
-        }
-    }
-
-    private String getElementTypeDescription() {
-        return "description";
-    }
-
-    private String getElementTypeEvent() {
-        return "events";
-    }
-
-    private String getElementTypePerson() {
-        return "person";
     }
 
     private void saveDescription() {
@@ -95,9 +76,9 @@ public class AddNewElementsController {
             statement.setString(3, description);
             statement.executeUpdate();
 
-            showAlert(Alert.AlertType.INFORMATION, "Успіх", "Опис успішно збережено!");
+            showAlert(Alert.AlertType.INFORMATION, "Успіх", "Період успішно збережено!");
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при збереженні опису: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при збереженні періоду: " + e.getMessage());
         }
     }
 
@@ -113,9 +94,9 @@ public class AddNewElementsController {
             statement.setString(3, description);
             statement.executeUpdate();
 
-            showAlert(Alert.AlertType.INFORMATION, "Успіх", "Опис успішно збережено!");
+            showAlert(Alert.AlertType.INFORMATION, "Успіх", "Подія успішно збережена!");
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при збереженні опису: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при збереженні події: " + e.getMessage());
         }
     }
 
@@ -131,9 +112,9 @@ public class AddNewElementsController {
             statement.setString(3, address);
             statement.executeUpdate();
 
-            showAlert(Alert.AlertType.INFORMATION, "Успіх", "Особу успішно збережено!");
+            showAlert(Alert.AlertType.INFORMATION, "Успіх", "Персона успішно збережена!");
         } catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при збереженні особи: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Помилка", "Помилка при збереженні персони: " + e.getMessage());
         }
     }
 

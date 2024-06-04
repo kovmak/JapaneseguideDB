@@ -249,40 +249,57 @@ public abstract class GenericJdbcRepository<T extends Entity> implements Reposit
 
     private T updateExecute(List<Object> values, String sql, String exceptionMessage) {
         try (Connection connection = connectionManager.get();
-            PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            // Логування списку значень перед перевіркою UUID
+            logger.info("Значення перед перевіркою UUID: {}", values);
+
+            UUID id = (UUID) values.stream()
+                    .filter(UUID.class::isInstance)
+                    .findFirst()
+                    .orElseThrow(() -> {
+                        logger.error("UUID не знайдено у списку значень");
+                        return new NoSuchElementException("UUID не знайдено");
+                    });
+
+            if (!findById(id).isPresent()) {
+                logger.error("Сутність з ID {} не знайдено перед оновленням", id);
+                throw new EntityUpdateException("Сутність з ID " + id + " не знайдено перед оновленням");
+            }
+
             for (int i = 0; i < values.size(); i++) {
                 if (values.get(i) instanceof Enum) {
                     statement.setString(i + 1, values.get(i).toString());
-                    logger.info(statement.toString() + i + values.size() + values.get(i));
                 } else {
                     statement.setObject(i + 1, values.get(i), Types.OTHER);
-                    logger.info(statement.toString() + i + "\n" + values.size());
                 }
             }
 
-            logger.info(statement.toString());
-            statement.executeUpdate();
+            logger.info("Виконання оновлення: {}", statement.toString());
+            logger.info("Значення для оновлення: {}", values);
 
-            logger.info(statement.toString());
-            UUID id = (UUID) values.stream()
-                .filter(UUID.class::isInstance)
-                .findFirst()
-                .orElseThrow(() -> {
-                    logger.error("UUID not found in values list");
-                    return new NoSuchElementException("UUID not found");
-                });
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                logger.error("Жоден рядок не було оновлено.");
+                throw new EntityUpdateException("Жоден рядок не було оновлено. Можлива проблема з одночасним оновленням.");
+            }
 
-            return findById(id)
-                .orElseThrow(() -> {
-                    logger.error("Entity with ID {} not found after update", id);
-                    return new EntityUpdateException(exceptionMessage);
-                });
-        } catch (SQLException | NoSuchElementException e) {
-            logger.error("Error occurred while batch inserting records into the table", e);
-            throw new EntityUpdateException(exceptionMessage);
+            T updatedEntity = findById(id)
+                    .orElseThrow(() -> {
+                        logger.error("Сутність з ID {} не знайдено після оновлення", id);
+                        return new EntityUpdateException(exceptionMessage);
+                    });
+
+            logger.info("Оновлення успішне для сутності: {}", updatedEntity);
+            return updatedEntity;
+        } catch (SQLException e) {
+            logger.error("Виникла SQLException під час виконання updateExecute", e);
+            throw new EntityUpdateException(exceptionMessage + ": " + e.getMessage(), e);
+        } catch (NoSuchElementException e) {
+            logger.error("Виникла NoSuchElementException під час виконання updateExecute", e);
+            throw new EntityUpdateException(exceptionMessage + ": " + e.getMessage(), e);
         }
     }
-
 
     @Override
     public Set<T> save(Collection<T> entities) {

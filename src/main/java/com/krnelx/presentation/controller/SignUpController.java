@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,6 +140,12 @@ public class SignUpController {
         } catch (SQLException e) {
             logger.error("Помилка при збереженні клієнта у базі даних: {}", e.getMessage());
         }
+    }
+
+    @FXML
+    public void onCancel() {
+        Stage currentStage = (Stage) nameField.getScene().getWindow();
+        currentStage.close();
     }
 
     @FXML
