@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="328.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.krnelx.presentation.controller.DeleteElementsController">
+    <children>
+        <VBox alignment="CENTER" layoutY="14.0" prefHeight="247.0" prefWidth="505.0" spacing="10.0">
+            <children>
+                  <Label styleClass="title-3" text="Виберіть тип елементу:" />
+                <Line endX="559.0" layoutX="0" layoutY="0" startX="150" stroke="#4a626f" strokeType="CENTERED" strokeWidth="2" />
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <CheckBox fx:id="eventCheckBox" text="Подія" />
+                        <CheckBox fx:id="personCheckBox" text="Персона" />
+                        <CheckBox fx:id="descriptionCheckBox" text="Період" />
+                    </children>
+                </HBox>
+
+                <ListView fx:id="dataListView" prefHeight="167.0" prefWidth="413.0" />
+            </children>
+        </VBox>
+
+          <HBox alignment="CENTER" layoutX="107.0" layoutY="275.0" prefHeight="32.0" prefWidth="276.0" spacing="10.0">
+          <Button fx:id="loadButton" onAction="#loadData" styleClass="accent" text="Завантажити дані" />
+          <Button fx:id="deleteButton" onAction="#deleteSelected" text="Видалити" />
+          </HBox>
+    </children>
+</AnchorPane>
