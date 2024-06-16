@@ -49,4 +49,3 @@ Contributions are welcome! If you find any issues or want to add more data, foll
 This project is licensed under the [MIT License](LICENSE).
 
 Project Link: [https://github.com/kovmak/JapaneseguideDB](https://github.com/kovmak/JapaneseguideDB)
-```
