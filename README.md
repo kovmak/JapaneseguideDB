@@ -22,7 +22,7 @@ To use JapaneseguideDB, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/JapaneseguideDB.git
+   git clone https://github.com/kovmak/JapaneseguideDB.git
    cd JapaneseguideDB
    ```
    
